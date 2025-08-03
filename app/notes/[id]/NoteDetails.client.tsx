@@ -6,7 +6,7 @@ import { Note } from '@/types/note';
 import css from './NoteDetails.module.css';
 
 interface Props {
-  id: number;
+  id: string;
 }
 
 export default function NoteDetailsClient({ id }: Props) {
@@ -17,7 +17,7 @@ export default function NoteDetailsClient({ id }: Props) {
   } = useQuery<Note>({
     queryKey: ['note', id],
     queryFn: () => fetchNoteById(id),
-    enabled: !isNaN(id),
+    enabled: !!id,
   });
 
   console.log(note);

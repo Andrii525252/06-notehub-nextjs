@@ -113,7 +113,7 @@ export const fetchNotes = async ({
   };
 };
 
-export const fetchNoteById = async (id: number): Promise<Note> => {
+export const fetchNoteById = async (id: string): Promise<Note> => {
   const response = await axios.get(`/notes/${id}`);
   console.log(response);
   return response.data;
