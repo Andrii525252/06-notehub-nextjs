@@ -1,5 +1,5 @@
 import css from './Footer.module.css';
-const Header = () => {
+const Footer = () => {
   return (
     <footer className={css.footer}>
       <div className={css.content}>
@@ -16,4 +16,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default Footer;
