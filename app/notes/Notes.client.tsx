@@ -19,7 +19,7 @@ export default function NotesClient({ initialNotes }: Props) {
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState('');
   const [debouncedSearch, setDebouncedSearch] = useState('');
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleSearch = useDebouncedCallback((search: string) => {
     setDebouncedSearch(search);
@@ -43,6 +43,9 @@ export default function NotesClient({ initialNotes }: Props) {
   if (error) return <p>Something went wrong: {error.message}</p>;
   if (!data) return <p>No notes found.</p>;
 
+  const handleCloseModal = () => setIsModalOpen(false);
+  const handleOpenModal = () => setIsModalOpen(true);
+
   return (
     <div className={css.app}>
       <header className={css.toolbar}>
@@ -54,11 +57,7 @@ export default function NotesClient({ initialNotes }: Props) {
             onPageChange={setPage}
           />
         )}
-        <button
-          className={css.button}
-          type="button"
-          onClick={() => setModalIsOpen(true)}
-        >
+        <button className={css.button} type="button" onClick={handleOpenModal}>
           Create +
         </button>
       </header>
@@ -68,9 +67,9 @@ export default function NotesClient({ initialNotes }: Props) {
       ) : (
         <p>No notes found</p>
       )}
-      {modalIsOpen && (
-        <Modal onClose={() => setModalIsOpen(false)}>
-          <NoteForm onClose={() => setModalIsOpen(false)} />
+      {isModalOpen && (
+        <Modal onClose={handleCloseModal}>
+          <NoteForm onSuccess={handleCloseModal} onCancel={handleCloseModal} />
         </Modal>
       )}
     </div>
